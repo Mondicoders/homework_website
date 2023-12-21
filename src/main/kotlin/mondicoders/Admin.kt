@@ -5,6 +5,7 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -22,7 +23,7 @@ fun Route.setupAdminRouting() {
                 val url = "http://127.0.0.1:8080/homeworks/" + homework.hwNum
                 call.respondRedirect(url)
             }
-        } catch (e: Exception) {
+        } catch (e: SerializationException) {
             println(e)
         }
         call.respond(HttpStatusCode.InternalServerError)
@@ -36,7 +37,7 @@ fun Route.setupAdminRouting() {
                 val url = "http://127.0.0.1:8080/admin"
                 call.respondRedirect(url)
             }
-        } catch (e: Exception) {
+        } catch (e: SerializationException) {
             println(e)
         }
         call.respond(HttpStatusCode.InternalServerError)
@@ -50,7 +51,7 @@ fun Route.setupAdminRouting() {
             val file = File(filePath)
             val textFile = file.readText()
             call.respond(Json.decodeFromString<Homework>(textFile))
-        } catch (e: Exception) {
+        } catch (e: SerializationException) {
             println(e)
         }
         call.respond(HttpStatusCode.InternalServerError)
@@ -60,7 +61,7 @@ fun Route.setupAdminRouting() {
         val users = getUsers()
         try {
             call.respond(if (users != null) Json.encodeToString(users) else HttpStatusCode.InternalServerError)
-        } catch (e: Exception) {
+        } catch (e: SerializationException) {
             println(e)
         }
         call.respond(HttpStatusCode.InternalServerError)

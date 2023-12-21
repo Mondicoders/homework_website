@@ -3,6 +3,8 @@ package mondicoders
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
+import java.io.IOException
+import kotlin.RuntimeException
 
 inline fun <reified T> modifyJsonFile(filePath: String, function: (T) -> Unit): Boolean {
     try {
@@ -12,7 +14,7 @@ inline fun <reified T> modifyJsonFile(filePath: String, function: (T) -> Unit): 
         function(jsonObject)
         file.writeText(Json.encodeToString(jsonObject))
         return true
-    } catch (e: Exception) {
+    } catch (e: RuntimeException) {
         println(e)
     }
     return false
@@ -24,7 +26,7 @@ fun createHomework(homework: Homework): Boolean {
         val file = File(outputFilePath)
         file.writeText(Json.encodeToString(homework))
         return true
-    } catch (e: Exception) {
+    } catch (e: RuntimeException) {
         println(e)
     }
     return false
@@ -41,7 +43,7 @@ fun getUsers(): UsersResponse? {
         val file = config.usersPath.toFile()
         val text = file.readText()
         return Json.decodeFromString<UsersResponse>(text)
-    } catch (e: Exception) {
+    } catch (e: RuntimeException) {
         println(e)
     }
     return null
@@ -61,7 +63,7 @@ fun submitHomework(submitHomeworkRequest: SubmitHomeworkRequest): Boolean {
         val file = File(filePath)
         val text = file.readText()
         // TODO
-    } catch (e: Exception) {
+    } catch (e: IOException) {
         println(e)
     }
     return false
