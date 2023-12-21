@@ -4,6 +4,20 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
 
+inline fun <reified T> modifyJsonFile(filePath: String, function: (T) -> Unit): Boolean {
+    try {
+        val file = File(filePath)
+        val text = file.readText()
+        val jsonObject = Json.decodeFromString<T>(text)
+        function(jsonObject)
+        file.writeText(Json.encodeToString(jsonObject))
+        return true
+    } catch (e: Exception) {
+        println(e)
+    }
+    return false
+}
+
 fun createHomework(homework: Homework): Boolean {
     try {
         val outputFilePath = config.dataDirectory.toString() + "/templates/hw" + homework.hwNum + ".json"
@@ -17,46 +31,27 @@ fun createHomework(homework: Homework): Boolean {
 }
 
 fun commentHomework(homeworkCommentRequest: HomeworkCommentRequest): Boolean {
-    try {
-        val filePath = config.dataDirectory.toString() + "/templates/hw" + homeworkCommentRequest.hwNum + ".json"
-        val file = File(filePath)
-        val text = file.readText()
-        val jsonObject = Json.decodeFromString<Homework>(text)
-        jsonObject.tasks[homeworkCommentRequest.taskNum.toInt() - 1].comment = homeworkCommentRequest.comment
-        file.writeText(Json.encodeToString(jsonObject))
-        return true
-    } catch (e: Exception) {
-        println(e)
+    return modifyJsonFile(config.dataDirectory.toString() + "/templates/hw" + homeworkCommentRequest.hwNum + ".json") { obj: Homework ->
+        obj.tasks[homeworkCommentRequest.taskNum.toInt() - 1].comment = homeworkCommentRequest.comment
     }
-    return false
 }
 
 fun getUsers(): UsersResponse? {
     try {
         val file = config.usersPath.toFile()
         val text = file.readText()
-        val jsonObject = Json.decodeFromString<UsersResponse>(text)
-        return jsonObject
+        return Json.decodeFromString<UsersResponse>(text)
     } catch (e: Exception) {
         println(e)
     }
     return null
 }
 
+// TODO: add auth folder (replace empty string)
 fun submitTask(submitTaskRequest: SubmitTaskRequest): Boolean {
-    try {
-        val filePath =
-            config.dataDirectory.toString() + "/users/" + "" + "hw" + submitTaskRequest.hwNum + ".json" // TODO: add auth folder (replace empty string)
-        val file = File(filePath)
-        val text = file.readText()
-        val jsonObject = Json.decodeFromString<Homework>(text)
-        jsonObject.tasks[submitTaskRequest.taskNum.toInt() - 1].userAnswer = submitTaskRequest.userAnswer
-        file.writeText(Json.encodeToString(jsonObject))
-        return true
-    } catch (e: Exception) {
-        println(e)
+    return modifyJsonFile(config.dataDirectory.toString() + "/users/" + "" + "hw" + submitTaskRequest.hwNum + ".json") { obj: Homework ->
+        obj.tasks[submitTaskRequest.taskNum.toInt() - 1].userAnswer = submitTaskRequest.userAnswer
     }
-    return false
 }
 
 fun submitHomework(submitHomeworkRequest: SubmitHomeworkRequest): Boolean {
