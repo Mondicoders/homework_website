@@ -22,16 +22,26 @@ fun commentHomework(homeworkCommentRequest: HomeworkCommentRequest): Boolean {
         val file = File(filePath)
         val text = file.readText()
         val jsonObject = Json.decodeFromString<Homework>(text)
-        jsonObject.tasks[homeworkCommentRequest.hwNum.toInt() - 1].comment = homeworkCommentRequest.comment
+        jsonObject.tasks[homeworkCommentRequest.taskNum.toInt() - 1].comment = homeworkCommentRequest.comment
         file.writeText(Json.encodeToString(jsonObject))
+        return true
     } catch (e: Exception) {
         println(e)
     }
     return false
 }
 
-fun submitTask(task: Task): Boolean {
+fun submitTask(submitTaskRequest: SubmitTaskRequest): Boolean {
     try {
-        val filePath = config.dataDirectory.toString() + "/users/"
+        val filePath = config.dataDirectory.toString() + "/users/" + "" + "hw" + submitTaskRequest.hwNum + ".json" // TODO: add auth folder (replace empty string)
+        val file = File(filePath)
+        val text = file.readText()
+        val jsonObject = Json.decodeFromString<Homework>(text)
+        jsonObject.tasks[submitTaskRequest.taskNum.toInt() - 1].userAnswer = submitTaskRequest.userAnswer
+        file.writeText(Json.encodeToString(jsonObject))
+        return true
+    } catch (e: Exception) {
+        println(e)
     }
+    return false
 }
