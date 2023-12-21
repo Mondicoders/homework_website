@@ -6,14 +6,13 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
 
 fun Route.setupAdminRouting() {
     get {
-        call.respond("OK")
+        call.respond(HttpStatusCode.OK)
     }
     post("/create_new_homework") {
         try {

@@ -21,7 +21,7 @@ object Config : CliktCommand(name = "java -jar homework_web.jar", printHelpOnEmp
     private val ktorArgs by option("--ktor-args", help = "Arguments to forward to ktor server").multiple()
 
     val usersPath by option("--users", help = "JSON file with users credentials")
-        .path(mustExist = true, canBeFile = true, canBeDir = false).default(dataDirectory.resolve("/users.json"))
+        .path(mustExist = true, canBeFile = true, canBeDir = false).required()
 
     override fun run() {
         io.ktor.server.netty.EngineMain.main((listOf("-port=$port") + ktorArgs).toTypedArray())
