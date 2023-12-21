@@ -17,3 +17,12 @@ data class TasksRequest(val hwNum: UInt)
 
 @Serializable
 data class SubmitTaskRequest(val hwNum: UInt, val taskNum: UInt, val userAnswer: String? = null)
+
+@Serializable
+data class SubmitHomeworkRequest(val hwNum: UInt)
+
+@Serializable
+data class User(val username: String, val password: String, val role: String)
+
+@Serializable
+data class UsersResponse(val users: List<User>)

@@ -14,6 +14,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.auth.*
 import kotlinx.serialization.json.Json
 import mondicoders.plugins.*
 import org.slf4j.event.*
@@ -41,6 +42,12 @@ private fun Application.setupKtorPlugins() {
     install(IgnoreTrailingSlash)
     install(ContentNegotiation) {
         json(defaultJsonSettings())
+    }
+    install(Authentication) {
+        basic("admin-api-auth") {
+            realm = "Access to the '/api/admin' path"
+            // TODO: Write controller
+        }
     }
 }
 

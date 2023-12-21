@@ -57,7 +57,13 @@ fun Route.setupAdminRouting() {
     }
 
     get("/users") {
-        // TODO: Add to config file users.json (required)
+        val users = getUsers()
+        try {
+            call.respond(if (users != null) Json.encodeToString(users) else HttpStatusCode.InternalServerError)
+        } catch (e: Exception) {
+            println(e)
+        }
+        call.respond(HttpStatusCode.InternalServerError)
     }
 }
 
