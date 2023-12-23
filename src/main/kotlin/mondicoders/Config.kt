@@ -20,7 +20,7 @@ object Config : CliktCommand(name = "java -jar homework_web.jar", printHelpOnEmp
 
     private val ktorArgs by option("--ktor-args", help = "Arguments to forward to ktor server").multiple()
 
-    val usersPath by option("--users", help = "JSON file with users credentials")
+    val usersPath by option("-u", "--users", help = "JSON file with users credentials")
         .path(mustExist = true, canBeFile = true, canBeDir = false).required()
 
     override fun run() {

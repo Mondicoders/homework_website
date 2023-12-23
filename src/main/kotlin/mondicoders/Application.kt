@@ -1,5 +1,6 @@
 package mondicoders
 
+import com.sun.security.auth.UserPrincipal
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -15,6 +16,7 @@ import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.auth.*
+import io.ktor.util.*
 import kotlinx.serialization.json.Json
 import mondicoders.plugins.*
 import org.slf4j.event.*
@@ -43,12 +45,29 @@ private fun Application.setupKtorPlugins() {
     install(ContentNegotiation) {
         json(defaultJsonSettings())
     }
+    val hashedUserTable = UserHashedTableAuth(
+        table = getAuthUsers(),
+        digester = digestFunction
+    )
+
     install(Authentication) {
-        basic("admin-api-auth") {
+        basic("auth-basic") {
             realm = "Access to the '/api/admin' path"
-            // TODO: Write controller
+            validate { credentials ->
+                hashedUserTable.authenticate(credentials)
+            }
         }
     }
+}
+
+val digestFunction = getDigestFunction("SHA-256") { "ktor${it.length}" }
+fun getAuthUsers(): Map<String, ByteArray> {
+    val users = getUsers()
+    val auth: MutableMap<String, ByteArray> = mutableMapOf()
+    for (user in users?.users!!) {
+        auth[user.username] = digestFunction(user.password)
+    }
+    return auth
 }
 
 @Suppress("unused")
