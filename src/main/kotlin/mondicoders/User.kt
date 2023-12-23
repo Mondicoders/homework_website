@@ -28,8 +28,7 @@ fun Route.setupUserRouting() {
                 val text = call.receiveText()
                 val submitHomeworkRequest = Json.decodeFromString<SubmitHomeworkRequest>(text)
                 if (submitHomework(submitHomeworkRequest)) {
-                    val url = "http://127.0.0.1:8080/result/" + submitHomeworkRequest.hwNum
-                    call.respondRedirect(url)
+                    call.respond(HttpStatusCode.OK)
                 }
             } catch (e: SerializationException) {
                 println(e)
@@ -42,8 +41,7 @@ fun Route.setupUserRouting() {
                 val text = call.receiveText()
                 val submitTaskRequest = Json.decodeFromString<SubmitTaskRequest>(text);
                 if (submitTask(submitTaskRequest)) {
-                    val url = "http://127.0.0.1:8080/homework/" + submitTaskRequest.hwNum
-                    call.respondRedirect(url)
+                    call.respond(HttpStatusCode.OK)
                 }
             } catch (e: SerializationException) {
                 println(e)

@@ -18,8 +18,7 @@ fun Route.setupAdminRouting() {
                 val text = call.receiveText()
                 val homework = Json.decodeFromString<Homework>(text)
                 if (createHomework(homework)) {
-                    val url = "http://127.0.0.1:8080/homeworks/" + homework.hwNum
-                    call.respondRedirect(url)
+                    call.respond(HttpStatusCode.OK)
                 }
             } catch (e: SerializationException) {
                 println(e)
@@ -32,8 +31,7 @@ fun Route.setupAdminRouting() {
                 val text = call.receiveText()
                 val homeworkCommentRequest = Json.decodeFromString<HomeworkCommentRequest>(text)
                 if (commentHomework(homeworkCommentRequest)) {
-                    val url = "http://127.0.0.1:8080/admin"
-                    call.respondRedirect(url)
+                    call.respond(HttpStatusCode.OK)
                 }
             } catch (e: SerializationException) {
                 println(e)
