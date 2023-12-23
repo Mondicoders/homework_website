@@ -51,8 +51,18 @@ private fun Application.setupKtorPlugins() {
     )
 
     install(Authentication) {
-        basic("auth-basic") {
+        basic("admin-auth-basic") {
             realm = "Access to the '/api/admin' path"
+            validate { credentials ->
+                if (checkAdminRole(credentials.name)) {
+                    hashedUserTable.authenticate(credentials)
+                } else {
+                    null
+                }
+            }
+        }
+        basic("user-auth-basic") {
+            realm = "Access to the '/api/user' path"
             validate { credentials ->
                 hashedUserTable.authenticate(credentials)
             }
@@ -60,14 +70,24 @@ private fun Application.setupKtorPlugins() {
     }
 }
 
-val digestFunction = getDigestFunction("SHA-256") { "ktor${it.length}" }
-fun getAuthUsers(): Map<String, ByteArray> {
+private val digestFunction = getDigestFunction("SHA-256") { "ktor${it.length}" }
+private fun getAuthUsers(): Map<String, ByteArray> {
     val users = getUsers()
     val auth: MutableMap<String, ByteArray> = mutableMapOf()
     for (user in users?.users!!) {
         auth[user.username] = digestFunction(user.password)
     }
     return auth
+}
+
+private fun checkAdminRole(name: String): Boolean {
+    val users = getUsers()
+    for (user in users?.users!!) {
+        if (user.username == name) {
+            return user.role == "admin"
+        }
+    }
+    return false
 }
 
 @Suppress("unused")

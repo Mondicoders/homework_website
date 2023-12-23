@@ -12,7 +12,7 @@ import kotlinx.serialization.json.Json
 import java.io.File
 
 fun Route.setupAdminRouting() {
-    authenticate("auth-basic") {
+    authenticate("admin-auth-basic") {
         post("/create_new_homework") {
             try {
                 val text = call.receiveText()
