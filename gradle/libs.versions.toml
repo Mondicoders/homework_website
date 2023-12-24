@@ -1,0 +1,94 @@
+[versions]
+ktor = "2.3.7"                     # https://ktor.io/
+datetime = "0.5.0"                 # https://github.com/Kotlin/kotlinx-datetime
+serialization = "1.6.2"            # https://github.com/Kotlin/kotlinx.serialization
+kotlin = "1.9.21"
+slf4j = "2.0.9"                    # https://www.slf4j.org/download.html
+logback = "1.4.14"                 # https://logback.qos.ch/download.html
+node-plugin = "7.0.1"              # https://github.com/node-gradle/gradle-node-plugin
+coroutines = "1.7.3"               # https://github.com/Kotlin/kotlinx.coroutines/
+exposed = "0.45.0"                 # https://github.com/JetBrains/Exposed
+telegram-bot = "6.1.0"             # https://github.com/kotlin-telegram-bot/kotlin-telegram-bot
+shadow-plugin = "8.1.1"            # https://github.com/johnrengelman/shadow
+sqlite = "3.44.1.0"                # https://github.com/xerial/sqlite-jdbc
+clikt = "4.2.1"                    # https://ajalt.github.io/clikt/
+immutable = "0.3.7"                # https://github.com/Kotlin/kotlinx.collections.immutable
+protobuf-plugin = "0.9.4"          # https://github.com/google/protobuf-gradle-plugin
+protobuf = "3.25.1"                # https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
+grpc = "1.60.0"                    # https://github.com/grpc/grpc
+grpc-kotlin = "1.4.1"              # https://github.com/grpc/grpc-kotlin
+dokka = "1.9.10"                   # https://github.com/Kotlin/dokka
+retrofit = "2.9.0"                 # https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit/2.9.0
+json5 = "0.3.0"                    # https://github.com/xn32/json5k
+kxs-ts-gen = "0.2.3"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
+apache-commons-csv = "1.10.0"      # https://commons.apache.org/proper/commons-csv/
+graphql = "7.0.2"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
+
+[libraries]
+
+ktor-client-cio        = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-cio" }
+ktor-client-auth       = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-auth" }
+ktor-client-contentNegotiation  = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-content-negotiation" }
+
+ktor-serialization-kotlinx-json = { version.ref = "ktor", group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
+
+ktor-server-auth                = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-auth" }
+ktor-server-autoHeadResponse    = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-auto-head-response" }
+ktor-server-callLogging         = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-call-logging" }
+ktor-server-contentNegotiation  = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-content-negotiation" }
+ktor-server-core                = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-core" }
+ktor-server-cors                = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-cors" }
+ktor-server-defaultHeaders      = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-default-headers" }
+ktor-server-netty               = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-netty" }
+ktor-server-statusPages         = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-status-pages" }
+ktor-server-tests               = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-tests" }
+ktor-server-websockets          = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-websockets" }
+
+
+kotlinx-datetime = { version.ref = "datetime", group = "org.jetbrains.kotlinx", name = "kotlinx-datetime" }
+kotlinx-serialization-json = { version.ref = "serialization", group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json" }
+kotlinx-coroutines-core = { version.ref = "coroutines", group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core" }
+kotlinx-collections-immutable = { version.ref = "immutable", group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable"}
+
+kotlinx-serialization-json5 = { version.ref = "json5", group = "io.github.xn32", name = "json5k" }
+
+
+kotlin-junit   = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-test-junit5" }
+kotlin-reflect = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-reflect" }
+
+exposed-core = { version.ref = "exposed", group = "org.jetbrains.exposed", name = "exposed-core"}
+exposed-dao  = { version.ref = "exposed", group = "org.jetbrains.exposed", name = "exposed-dao"}
+exposed-jdbc = { version.ref = "exposed", group = "org.jetbrains.exposed", name = "exposed-jdbc"}
+
+slf4j = { version.ref = "slf4j", group = "org.slf4j", name = "slf4j-api" }
+logback = { version.ref = "logback", group = "ch.qos.logback", name = "logback-classic" }
+
+telegram-bot = { version.ref = "telegram-bot", group = "io.github.kotlin-telegram-bot.kotlin-telegram-bot", name = "telegram" }
+retrofit = { version.ref = "retrofit", group = "com.squareup.retrofit2", name = "retrofit" }
+db-sqlite = { version.ref = "sqlite", group = "org.xerial", name = "sqlite-jdbc" }
+
+cli = { version.ref = "clikt", group = "com.github.ajalt.clikt", name = "clikt" }
+
+grpc-netty = { version.ref = "grpc", group = "io.grpc", name = "grpc-netty" }
+grpc-protobuf = { version.ref = "grpc", group = "io.grpc", name = "grpc-protobuf" }
+grpc-stub = { version.ref = "grpc-kotlin", group = "io.grpc", name = "grpc-kotlin-stub" }
+grpc-gen-java = { version.ref = "grpc", group = "io.grpc", name = "protoc-gen-grpc-java" }
+grpc-gen-kotlin = { version.ref = "grpc-kotlin", group = "io.grpc", name = "protoc-gen-grpc-kotlin" }
+
+protobuf = { version.ref = "protobuf", group = "com.google.protobuf", name = "protobuf-kotlin" }
+protoc = { version.ref = "protobuf", group = "com.google.protobuf", name = "protoc" }
+kxs-ts-gen-core = { version.ref = "kxs-ts-gen" , group = "dev.adamko.kxstsgen", name = "kxs-ts-gen-core" }
+
+apache-commons-csv = { version.ref = "apache-commons-csv", group = "org.apache.commons", name = "commons-csv"}
+
+graphql-ktor-client = { version.ref = "graphql", group = "com.expediagroup", name = "graphql-kotlin-ktor-client"}
+
+[plugins]
+
+node = { id = "com.github.node-gradle.node", version.ref = "node-plugin" }
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow-plugin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+graphql = { id = "com.expediagroup.graphql", version.ref = "graphql"}

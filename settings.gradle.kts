@@ -14,4 +14,19 @@ dependencyResolutionManagement {
         create("libs") {}
     }
 }
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+include(
+    ":backend",
+    ":frontend"
+)
+
+project(":backend").projectDir = file("src/backend")
+project(":frontend").projectDir = file("src/frontend")
+
+
+gradleEnterprise.buildScan {
+    termsOfServiceUrl = "https://gradle.com/terms-of-service"
+    termsOfServiceAgree = "yes"
+}

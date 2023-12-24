@@ -57,11 +57,12 @@ fun submitTask(submitTaskRequest: SubmitTaskRequest): Boolean {
 }
 
 fun submitHomework(submitHomeworkRequest: SubmitHomeworkRequest): Boolean {
+    println(submitHomeworkRequest)
     try {
-        val filePath =
-            config.dataDirectory.toString() + "/users/" + "" + "hw" + submitHomeworkRequest.hwNum + ".json" // TODO: add auth folder (replace empty string)
-        val file = File(filePath)
-        val text = file.readText()
+      //  val filePath =
+        //    config.dataDirectory.toString() + "/users/" + "" + "hw" + submitHomeworkRequest.hwNum + ".json" // TODO: add auth folder (replace empty string)
+        //val file = File(filePath)
+       // val text = file.readText()
         // TODO
     } catch (e: IOException) {
         println(e)
